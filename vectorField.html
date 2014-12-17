@@ -1,0 +1,95 @@
+<html>
+	<head>
+		<title>Vector Fields </title>
+		<style>
+		</style>
+	</head>
+	<body>
+		<div id="container">
+		</div>
+
+		<script src="jquery.js"> </script>
+		<script src="three.min.js"></script>
+		<script>
+			var scene = new THREE.Scene();
+
+			var camera = new THREE.OrthographicCamera(-10, 10, -10, 10, 1, 1000);
+			camera.position.set(0,0, 30)
+			scene.add(camera);
+
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( 700, 700 );
+			$('#container').append( renderer.domElement );
+
+			var whiteMaterial = new THREE.MeshBasicMaterial( {
+				color: 0xffffff
+			} );
+
+			var colorMaterial = new THREE.MeshBasicMaterial( {
+				color: 0x00ff00
+			} );
+
+			var xAxisGeometry = new THREE.Geometry();
+			xAxisGeometry.vertices.push(new THREE.Vector3(-10, 0, 0));
+    		xAxisGeometry.vertices.push(new THREE.Vector3(10, 0, 0));
+
+    		var yAxisGeometry = new THREE.Geometry();
+    		yAxisGeometry.vertices.push(new THREE.Vector3(0, -10, 0));
+    		yAxisGeometry.vertices.push(new THREE.Vector3(0, 10, 0));
+
+    		var xaxis = new THREE.Line(xAxisGeometry, whiteMaterial);
+    		var yaxis = new THREE.Line(yAxisGeometry, whiteMaterial);
+    		scene.add(xaxis);
+    		scene.add(yaxis);
+
+    		//adding x tick marks
+    		for(var x=-10; x<10; x++){
+    			var dash = new THREE.Geometry();
+    			dash.vertices.push(new THREE.Vector3(x-.1, 0, 0));
+    			dash.vertices.push(new THREE.Vector3(x+.1, 0, 0));
+    			scene.add(new THREE.Line(dash, whiteMaterial));
+    		}
+
+    		//adding y tick marks
+    		for(var y=-10; y<10; y++){
+    			var dash = new THREE.Geometry();
+    			dash.vertices.push(new THREE.Vector3(0,y-.1, 0));
+    			dash.vertices.push(new THREE.Vector3(0,y+.1, 0));
+    			scene.add(new THREE.Line(dash, whiteMaterial));
+    		}
+
+    		//representing vector field
+    		for(var x=-10; x<10; x++){
+    			for(var y=-10; y<10; y++){
+    				var vector = new THREE.Geometry();
+    				vector.vertices.push(new THREE.Vector3(x,y,0));
+    				dx= getFieldX(x,y)*.1;
+    				dy= getFieldY(x,y)*.1;
+    				vector.vertices.push(new THREE.Vector3(x+dx,y+dy,0));
+    				scene.add(new THREE.Line(vector, colorMaterial));
+    			}
+    		}
+
+    		function scaleToOneTenth(val){
+    			return
+    		}
+
+    		function getFieldX(x,y){
+    			return -y;
+    		}
+
+    		function getFieldY(x,y){
+    			return x;
+    		}
+
+    		renderer.render(scene, camera);
+
+			function render() {
+				requestAnimationFrame( render );
+				renderer.render( scene, camera );
+			}
+			//render();
+
+		</script>
+	</body>
+</html>
