@@ -1,0 +1,8 @@
+body{
+	background-color: black;
+}
+
+.rectangle{
+	border: 1px solid #FF0000;
+	position: absolute;
+}

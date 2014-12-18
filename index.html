@@ -1,0 +1,200 @@
+<html>
+	<head>
+		<title>Vector Fields </title>
+		<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+		<link rel="stylesheet" href="vectorFieldFlow.css">
+	</head>
+	<body>
+		<div class="pure-menu pure-menu-open pure-menu-horizontal">
+		    <ul>
+		    	<li></li>
+		        <li><a href="#">Vector Field Flow</a></li>
+		        <li><input> </input> i +</li>
+		        <li><input> </input> j </li>
+		    </ul>
+		</div>
+		<center>
+			<div id="canvas">
+			</div>
+		</center>
+
+		<script src="jquery.js"> </script>
+		<script src="three.min.js"></script>
+		<script>
+			var scene = new THREE.Scene();
+			var $canvas = $('#canvas');
+
+			ratio = window.innerWidth/(window.innerHeight-50);
+			width = 10*ratio
+			height = 10
+			console.log("ratio = " + ratio)
+			var camera = new THREE.OrthographicCamera(-width, width, -height, height, 1, 1000);
+			camera.position.set(0,0, 30)
+			scene.add(camera);
+
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight-50);
+			$canvas.append( renderer.domElement );
+
+			var whiteMaterial = new THREE.MeshBasicMaterial( {
+				color: 0xffffff
+			} );
+
+			var greenMaterial = new THREE.MeshBasicMaterial( {
+				color: 0x00ff00
+			} );
+
+			var redMaterial = new THREE.MeshBasicMaterial({
+				color: 0xCC0000
+			} );
+
+			var xAxisGeometry = new THREE.Geometry();
+			xAxisGeometry.vertices.push(new THREE.Vector3(-width, 0, 0));
+			xAxisGeometry.vertices.push(new THREE.Vector3(width, 0, 0));
+
+			var yAxisGeometry = new THREE.Geometry();
+			yAxisGeometry.vertices.push(new THREE.Vector3(0, -height, 0));
+			yAxisGeometry.vertices.push(new THREE.Vector3(0, height, 0));
+
+			var xaxis = new THREE.Line(xAxisGeometry, whiteMaterial);
+			var yaxis = new THREE.Line(yAxisGeometry, whiteMaterial);
+			scene.add(xaxis);
+			scene.add(yaxis);
+
+			//adding x tick marks
+			for(var x=-width; x<width; x++){
+				var dash = new THREE.Geometry();
+				dash.vertices.push(new THREE.Vector3(x, .1, 0));
+				dash.vertices.push(new THREE.Vector3(x, -.1, 0));
+				scene.add(new THREE.Line(dash, whiteMaterial));
+			}
+
+			//adding y tick marks
+			for(var y=-height; y<height; y++){
+				var dash = new THREE.Geometry();
+				dash.vertices.push(new THREE.Vector3(-.1,y, 0));
+				dash.vertices.push(new THREE.Vector3(.1,y, 0));
+				scene.add(new THREE.Line(dash, whiteMaterial));
+			}
+
+			//figure out good scale for vector ticks
+			var scale = .1;
+			var max =0;
+			for(var x=-10; x<10; x++){
+				for(var y=-10; y<10; y++){
+					mag = Math.pow(getFieldX(x,y), 2) + Math.pow(getFieldY(x,y),2);
+					if(max<mag){
+						max=mag
+					}
+				}
+			}
+
+			max = Math.pow(max, .5)
+
+			scale=1/max
+
+			//representing vector field
+			for(var x=-width; x<width; x++){
+				for(var y=-height; y<height; y++){
+					var vector = new THREE.Geometry();
+					vector.vertices.push(new THREE.Vector3(x,y,0));
+					dx= getFieldX(x,y)*scale;
+					dy= getFieldY(x,y)*scale;
+					vector.vertices.push(new THREE.Vector3(x+dx,y+dy,0));
+					scene.add(new THREE.Line(vector, greenMaterial));
+				}
+			}
+
+			function getFieldX(x,y){
+				//return -y
+				return -2*y/(Math.pow(x,2)+Math.pow(y,2));
+			}
+
+			function getFieldY(x,y){
+				//return x
+				return 2*x/(Math.pow(x,2)+Math.pow(y,2));
+			}
+
+			function setMousePosition(e) {
+		        var ev = e || window.event; //Moz || IE
+		        if (ev.pageX) { //Moz
+		            mouse.x = ev.pageX + window.pageXOffset;
+		            mouse.y = ev.pageY + window.pageYOffset;
+		        } else if (ev.clientX) { //IE
+		            mouse.x = ev.clientX + document.body.scrollLeft;
+		            mouse.y = ev.clientY + document.body.scrollTop;
+		        }
+		    };
+
+		    var mouse = {
+		        x: 0,
+		        y: 0,
+		        startX: 0,
+		        startY: 0
+		    };
+		    var element = null;
+
+		    canvas.onmousemove = function (e) {
+		        setMousePosition();
+		        if (element !== null) {
+		            element.style.width = Math.abs(mouse.x - mouse.startX) + 'px';
+		            element.style.height = Math.abs(mouse.y - mouse.startY) + 'px';
+		            element.style.left = (mouse.x - mouse.startX < 0) ? mouse.x + 'px' : mouse.startX + 'px';
+		            element.style.top = (mouse.y - mouse.startY < 0) ? mouse.y + 'px' : mouse.startY + 'px';
+		        }
+		    }
+
+		    canvas.onclick = function (e) {
+		        if (element !== null) {
+		            element = null;
+		            canvas.style.cursor = "default";
+		            console.log("finsihed.");
+		        } else {
+		            console.log("begun.");
+		            mouse.startX = mouse.x;
+		            mouse.startY = mouse.y;
+		            element = document.createElement('div');
+		            element.className = 'rectangle'
+		            element.style.left = mouse.x + 'px';
+		            element.style.top = mouse.y + 'px';
+		            $canvas.appendChild(element)
+		            $canvas.style.cursor = "crosshair";
+		        }
+		    }
+
+			w= 5;
+			h= 6;
+			plotPoints= 40;
+			dt=.03;
+			fps=30;
+			geometry = new THREE.BoxGeometry(w, h, 0, plotPoints, plotPoints, 0);
+			region = new THREE.Mesh(geometry, redMaterial);
+			region.position.x += 5;
+			region.position.y += 5;
+			scene.add(region);
+
+			function updateFrame(dt){
+				for (var i in region.geometry.vertices){
+					var vertex = region.geometry.vertices[i];
+					var coord = scene.localToWorld(vertex.clone()).add(region.position);
+					var vx = getFieldX(coord.x, coord.y);
+					var vy = getFieldY(coord.x, coord.y);
+					var v = new THREE.Vector3(vx,vy,0);
+					var ds = v.multiplyScalar(dt);
+					vertex.add(ds);
+				}
+				region.geometry.verticesNeedUpdate=true;
+			}
+
+			function render() {
+				setTimeout( function() {
+					requestAnimationFrame( render );
+				}, 1000/fps);
+				updateFrame(dt);
+				renderer.render( scene, camera );
+			}
+			render();
+
+		</script>
+	</body>
+</html>
