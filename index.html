@@ -10,6 +10,14 @@
 		    <ul>
 		    	<li></li>
 		        <li><a href="#">Vector Field Flow</a></li>
+		        <li> <input list="browsers" />
+					<datalist id="browsers">
+					  <option value="Chrome">
+					  <option value="Firefox">
+					  <option value="Internet Explorer">
+					  <option value="Opera">
+					  <option value="Safari">
+					</datalist>
 		        <li><input id="i" autocomplete="on" value="-y"> </input> i +</li>
 		        <li><input id="j" autocomplete="on" value="x"> </input> j </li>
 		        <li><button id="go" class="pure-button" onclick="start()" >Go!</a></button>
@@ -40,7 +48,7 @@
 				renderer = new THREE.CanvasRenderer();
 
 			renderer.setSize( window.innerWidth, window.innerHeight-50);
-			renderer.setClearColor()
+			//renderer.setClearColorHex( 0xF2F0EF, 1 );
 			$canvas.append( renderer.domElement );;
 
 			var whiteMaterial = new THREE.MeshBasicMaterial( {
@@ -55,10 +63,14 @@
 				color: 0xCC0000
 			} );
 
+			var blackMaterial = new THREE.MeshBasicMaterial({
+				color: 0x000000
+			} );
+
 			var xcomp, ycomp, scale, max
 			var plotPoints= 30;
-			var dt=.01;
-			var fps=30;
+			var dt
+			var fps=60;
 
 			var geometry = new THREE.BoxGeometry();
 			var region = new THREE.Mesh(geometry, redMaterial);
@@ -116,7 +128,9 @@
 				}
 
 				max = Math.pow(max, .5);
+				console.log("max " + max)
 				scale=.5/max;
+				dt=scale*.35
 				var arrowHelper;
 
 
