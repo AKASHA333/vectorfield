@@ -1,8 +1,18 @@
-body{
+#canvas{
+	color:black;
 	background-color: black;
 }
 
 .rectangle{
 	border: 1px solid #FF0000;
 	position: absolute;
+}
+
+#center{
+	width: 700px;
+	margin: 0 auto;
+}
+
+#settings{
+	float: right;
 }
