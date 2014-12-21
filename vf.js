@@ -1,3 +1,5 @@
+stop=false
+function start2D(){
 	var scene = new THREE.Scene();
 	var $canvas = $('#canvas');
 	var camera
@@ -112,10 +114,12 @@
 					var origin = new THREE.Vector3( x, y, 0 );
 					var length = Math.sqrt(Math.pow(dx,2)+Math.pow(dy,2));
 					var hex = 0xffffff;
-					if(length>.2)
+					if(length>.25)
 						arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, .2,.15 );
+					else if(length>.15)
+						arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, .1,.15 );
 					else
-						arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, .05,.15 );
+						arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, .05,.1 );
 					scene.add( arrowHelper );
 				}
 			}
@@ -221,10 +225,17 @@
 	}
 
 	function render() {
-		setTimeout( function() {
-			requestAnimationFrame( render );
-		}, 1000/fps);
-		updateFrame(dt);
-		renderer.render( scene, camera );
+		if(!stop){
+			setTimeout( function() {
+				requestAnimationFrame( render );
+			}, 1000/fps);
+			updateFrame(dt);
+			renderer.render( scene, camera );
+		}
 	}
 	render();
+}
+
+function stop2D(){
+	stop=true
+}
