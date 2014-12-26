@@ -6,8 +6,6 @@
 		<link rel="stylesheet" href="normalize.css">
 	</head>
 	<body>
-		<script src="js/jquery.min.js"> </script>
-
 		<div id="center" class="pure-menu pure-menu-open pure-menu-horizontal">
 		    <ul>
 		        <li><a href="#">Vector Field Flow</a></li>
@@ -48,7 +46,7 @@
 		    <div class="content">
 			    <p>Plot Points</p>
 			    <div>
-			    	<input id="plotpoints" type="range" min="10" max="90" value="50" onchange="updatePText(this.value)"/>
+			    	<input id="plotpoints" type="range" min="10" max="100" value="50" onchange="updatePText(this.value)"/>
 			   		<p class="sliderval" id="plotpointsval">50</p>
 			   	</div>
 
@@ -72,6 +70,8 @@
 
 		<div id="canvas">
 		</div>
+
+		<script src="js/jquery.min.js"> </script>
 		<script src="js/options.js"></script>
 		<script src="js/three.min.js"></script>
 		<script src="vf.js"></script>
