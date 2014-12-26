@@ -100,6 +100,10 @@ function refresh2D(){
 	console.log("max " + max)
 	scale=1/max;
 	dt=scale*.175
+	if(dt>.1){
+		dt=dt*.5
+	}
+	console.log("dt=" + dt)
 	var arrowHelper;
 
 

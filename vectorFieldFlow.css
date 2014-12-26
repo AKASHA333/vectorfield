@@ -70,6 +70,14 @@
   background: #8e44ad;
 }
 
+.content{
+	width:175;
+}
+
 .panel.hide{
   right: -220px;
+}
+
+.sliderval{
+	display: inline-block;
 }
