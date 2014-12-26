@@ -37,9 +37,9 @@ var blackMaterial = new THREE.MeshBasicMaterial({
 } );
 
 var xcomp, ycomp, scale, max
-var plotPoints= 30;
+var plotPoints= 60;
 var dt
-var fps=60;
+var fps=30;
 
 var geometry = new THREE.BoxGeometry();
 var region = new THREE.Mesh(geometry, redMaterial);
@@ -98,8 +98,8 @@ function refresh2D(){
 
 	max = Math.pow(max, .5);
 	console.log("max " + max)
-	scale=.5/max;
-	dt=scale*.35
+	scale=1/max;
+	dt=scale*.175
 	var arrowHelper;
 
 
@@ -109,16 +109,17 @@ function refresh2D(){
 			if (x!=0 && y!=0){
 				dx= getFieldX(x,y)*scale;
 				dy= getFieldY(x,y)*scale;
-				var dir = new THREE.Vector3( dx, dy, 0 );
+				mag=Math.sqrt(Math.pow(dx, 2) + Math.pow(dy,2));
+				var dir = new THREE.Vector3( dx/mag, dy/mag, 0 );
 				var origin = new THREE.Vector3( x, y, 0 );
 				var length = Math.sqrt(Math.pow(dx,2)+Math.pow(dy,2));
-				var hex = 0xffffff;
-				if(length>.25)
+				var hex =  0x2980b9;
+				if(length>.5)
 					arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, .2,.15 );
-				else if(length>.15)
+				else if(length>.35)
 					arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, .1,.15 );
 				else
-					arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, .05,.1 );
+					arrowHelper = new THREE.ArrowHelper( dir, origin, .2, hex, .05,.1 );
 				scene.add( arrowHelper );
 			}
 		}

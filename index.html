@@ -3,8 +3,10 @@
 		<title>Vector Fields </title>
 		<link rel="stylesheet" href="css/pure.css">
 		<link rel="stylesheet" href="vectorFieldFlow.css">
+		<link rel="stylesheet" href="normalize.css">
 	</head>
 	<body>
+		<script src="js/jquery.min.js"> </script>
 		<div id="center" class="pure-menu pure-menu-open pure-menu-horizontal">
 		    <ul>
 		        <li><a href="#">Vector Field Flow</a></li>
@@ -35,15 +37,26 @@
 						</fieldset>
 					</form>
 				</li>
-		        <li><button id="go" class="pure-button" onclick="refresh2D()" >Go!</a></button>
+				<li><button id="go" class="pure-button" onclick="refresh2D()" >Go!</button></li>
 		    </ul>
+		</div>
+	    <div class="panel" id="options">
+		    <div class="tab">
+		      >
+		    </div>
+		    <div class="content">
+			    <p>Equation</p>
+			    <input type="text"/>
+			    <p>Some other setting</p>
+			    <input type="checkbox"> True
+		    </div>
 		</div>
 
 
 		<div id="canvas">
 		</div>
 
-		<script src="js/jquery.min.js"> </script>
+		<script src="js/animations.js"></script>
 		<script src="js/three.min.js"></script>
 		<script src="vf.js"></script>
 		<script>
