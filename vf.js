@@ -29,7 +29,7 @@ var greenMaterial = new THREE.MeshBasicMaterial( {
 } );
 
 var redMaterial = new THREE.MeshBasicMaterial({
-	color: 0xCC0000
+	color: 0xE74C3C
 } );
 
 var blackMaterial = new THREE.MeshBasicMaterial({
