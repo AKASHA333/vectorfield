@@ -2,14 +2,15 @@
 	<head>
 		<title>Vector Fields </title>
 		<link rel="stylesheet" href="css/pure.css">
-		<link rel="stylesheet" href="vectorFieldFlow.css">
+		<link rel="stylesheet" href="css/vectorFieldFlow.css">
 		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/sweetalert.css">
 	</head>
 	<body>
-		<div id="center" class="pure-menu pure-menu-open pure-menu-horizontal">
-		    <ul>
-		        <li><a href="#">Vector Field Flow</a></li>
-		        <li>
+
+		<div id="center">
+				<div class="title" style="margin-right:10px">Vector Field Flow </div>
+		        <div>
 		        	<form class="pure-form">
 		        		<fieldset>
 				        <input id="i" list="xoptions" value="-y" /> <b>i</b> +
@@ -35,46 +36,22 @@
 							</datalist>
 						</fieldset>
 					</form>
-				</li>
-				<li><button id="go" class="pure-button" onclick="refresh2D()" >Go!</button></li>
-				<li><div>  </div></li>
-		    </ul>
+				</div>
+			<div id="go" class="pure-button">Go!</div>
 		</div>
-	    <div class="panel" id="options">
-		    <div class="tab">
-		      >
-		    </div>
-		    <div class="content">
-			    <p>Plot Points</p>
-			    <div>
-			    	<input id="plotpoints" type="range" min="10" max="100" value="50" onchange="updatePText(this.value)"/>
-			   		<p class="sliderval" id="plotpointsval">50</p>
-			   	</div>
-
-			    <p>FPS</p>
-			    <div>
-			    	<input id="fps" type="range" min="20" max="60" value="30" onchange="updateFText(this.value)"/>
-					<p class="sliderval" id="fpsval">30</p>
-			    </div>
-
-			    <p>dt</p>
-			    <div>
-			    	<input id="dt" type="range" min="0.01" max=".201" step=".05"/>
-			    	<p class="sliderval" id="dtval"></p>
-			    </div>
-
-			    <br>
-			    <div> <input type="checkbox" checked> Antialiasing </div>
-		    </div>
-		</div>
-
 
 		<div id="canvas">
 		</div>
 
 		<script src="js/jquery.min.js"> </script>
-		<script src="js/options.js"></script>
 		<script src="js/three.min.js"></script>
-		<script src="vf.js"></script>
+		<script src="js/dat.gui.min.js"></script>
+		<script src="js/vf.js"></script>
+		<script src="js/sweetalert.min.js"></script>
+		<script>
+		$('#go').click()
+
+		swal("To interact with the vector field, click on two points to create a rectangle")
+		</script>
 	</body>
 </html>
