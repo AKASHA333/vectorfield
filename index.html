@@ -11,9 +11,9 @@
 		<div id="center">
 				<div class="title" style="margin-right:10px">Vector Field Flow </div>
 		        <div>
-		        	<form class="pure-form">
+		        	<form class="pure-form" autocomplete="off">
 		        		<fieldset>
-				        <input id="i" list="xoptions" value="-y" /> <b>i</b> +
+				        <input id="i" type="text" list="xoptions" value="-y" autocomplete="off"/> <b>i</b> +
 							<datalist id="xoptions">
 							  <option value="-y">
 							  <option value="x">
@@ -21,16 +21,18 @@
 							  <option value="y">
 							  <option value="1">
 							  <option value="1">
+							  <option value="Math.cos(y)">
 							  <option value="-y/(Math.pow(x,2)+Math.pow(y,2))">
 							</datalist>
 
-				        <input id="j" list="yoptions" value="x"> </input> <b>j</b>
+				        <input id="j" type="text" list="yoptions" value="x" autocomplete="off"> </input> <b>j</b>
 				        	<datalist id="yoptions">
 							  <option value="x">
 							  <option value="y">
 							  <option value="-y">
 							  <option value="0">
 							  <option value="0">
+							  <option value="Math.sin(x)">
 							  <option value="Math.sin(x)">
 							  <option value="x/(Math.pow(x,2)+Math.pow(y,2))">
 							</datalist>
