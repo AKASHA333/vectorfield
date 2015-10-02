@@ -61,6 +61,7 @@ function setup(){
 	//renderer.setClearColorHex( 0xF2F0EF, 1 );
 	$canvas.append( renderer.domElement );;
 
+	THREEx.WindowResize(renderer, camera);
 
 	geometry = new THREE.BoxGeometry();
 	region = new THREE.Mesh(geometry, redMaterial);
