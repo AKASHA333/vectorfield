@@ -6,12 +6,8 @@ var vf = {
 
 window.onload = function() {
   var gui = new dat.GUI();
-  gui.add(vf, 'plotPoints', 10, 100).step(1);
+  gui.add(vf, 'plotPoints', 4, 300).step(1);
   gui.add(vf, 'fps', 20, 60).step(1);
-  gui.add(vf, 'antialiasing').onChange( function (){
-  		setup()
-	});
-
 };
 
 
@@ -155,11 +151,6 @@ function refresh2D(){
 		}
 	}
 
-	/*geometry = new THREE.BoxGeometry(w, h, 0, plotPoints, plotPoints, 0);
-	region = new THREE.Mesh(geometry, redMaterial);
-	region.position.x += 5;
-	region.position.y += 5;
-	scene.add(region);*/
 }
 
 function getFieldX(x,y){
@@ -218,7 +209,8 @@ canvas.onclick = function (e) {
         y=PixToX(y)+h/2
 
 		scene.remove(region)
-        geometry = new THREE.BoxGeometry(w, h, 0, vf.plotPoints, vf.plotPoints, 0);
+    geometry = new THREE.BoxGeometry(w, h, 0, vf.plotPoints, vf.plotPoints, 0);
+    console.log(vf.plotPoints);
 		region = new THREE.Mesh(geometry, redMaterial);
 		region.position.x += x;
 		region.position.y += y;
