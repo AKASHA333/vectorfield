@@ -26,7 +26,7 @@ var THREEx	= THREEx 		|| {};
 THREEx.WindowResize	= function(renderer, camera){
 	var callback	= function(){
 		// notify the renderer of the size change
-		renderer.setSize( window.innerWidth, window.innerHeight - 50 );
+		renderer.setSize( window.innerWidth, window.innerHeight - 74 );
 		// update the camera
 		camera.aspect	= window.innerWidth / window.innerHeight; //this threw errors, but it worked without it so I commented it out
 		//camera.updateProjectionMatrix();
