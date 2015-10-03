@@ -6,7 +6,7 @@
 // **Step 1**: Start updating renderer and camera
 //
 // ```var windowResize = THREEx.WindowResize(aRenderer, aCamera)```
-//    
+//
 // **Step 2**: Start updating renderer and camera
 //
 // ```windowResize.stop()```
@@ -19,17 +19,17 @@ var THREEx	= THREEx 		|| {};
 
 /**
  * Update renderer and camera when the window is resized
- * 
+ *
  * @param {Object} renderer the renderer to update
  * @param {Object} Camera the camera to update
 */
 THREEx.WindowResize	= function(renderer, camera){
 	var callback	= function(){
 		// notify the renderer of the size change
-		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.setSize( window.innerWidth, window.innerHeight - 50 );
 		// update the camera
-		// camera.aspect	= window.innerWidth / window.innerHeight; //this threw errors, but it worked without it so I commented it out
-		camera.updateProjectionMatrix();
+		camera.aspect	= window.innerWidth / window.innerHeight; //this threw errors, but it worked without it so I commented it out
+		//camera.updateProjectionMatrix();
 	}
 	// bind the resize event
 	window.addEventListener('resize', callback, false);

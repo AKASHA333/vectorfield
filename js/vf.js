@@ -57,7 +57,7 @@ function setup(){
 	else
 		renderer = new THREE.CanvasRenderer();
 
-	renderer.setSize( window.innerWidth, window.innerHeight-50);
+	renderer.setSize( window.innerWidth, window.innerHeight-75);
 	//renderer.setClearColorHex( 0xF2F0EF, 1 );
 	$canvas.append( renderer.domElement );;
 
@@ -65,6 +65,8 @@ function setup(){
 
 	geometry = new THREE.BoxGeometry();
 	region = new THREE.Mesh(geometry, redMaterial);
+
+  windowResize = THREEx.WindowResize(renderer, camera)
 
 	refresh2D()
 }
