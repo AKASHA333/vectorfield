@@ -190,7 +190,7 @@ var mouse = {
 var element = null;
 
 canvas.onmousemove = function (e) {
-    setMousePosition();
+    setMousePosition(e);
     if (element !== null) {
         element.style.width = Math.abs(mouse.x - mouse.startX) + 'px';
         element.style.height = Math.abs(mouse.y - mouse.startY) + 'px';
