@@ -57,7 +57,7 @@ function setup(){
 	else
 		renderer = new THREE.CanvasRenderer();
 
-	renderer.setSize( window.innerWidth, window.innerHeight-75);
+	renderer.setSize( window.innerWidth, window.innerHeight-74);
 	//renderer.setClearColorHex( 0xF2F0EF, 1 );
 	$canvas.append( renderer.domElement );;
 
