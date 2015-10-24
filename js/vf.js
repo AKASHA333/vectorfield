@@ -133,8 +133,8 @@ function refresh2D(){
 	for(var x=-width; x<width; x++){
 		for(var y=-height; y<=height; y++){
 			if (x!=0 && y!=0){
-				dx= getFieldX(x,y)*scale;
-				dy= getFieldY(x,y)*scale;
+				dx= getFieldX(x,-y)*scale;
+				dy= getFieldY(x,-y)*scale;
 				mag=Math.sqrt(Math.pow(dx, 2) + Math.pow(dy,2));
 				var dir = new THREE.Vector3( dx/mag, dy/mag, 0 );
 				var origin = new THREE.Vector3( x, y, 0 );
@@ -158,7 +158,7 @@ function getFieldX(x,y){
 }
 
 function getFieldY(x,y){
-	return eval(ycomp)
+	return -eval(ycomp)
 }
 
 function setMousePosition(e) {
@@ -233,8 +233,8 @@ function updateFrame(dt){
 	for (var i in region.geometry.vertices){
 		var vertex = region.geometry.vertices[i];
 		var coord = scene.localToWorld(vertex.clone()).add(region.position);
-		var vx = getFieldX(coord.x, coord.y);
-		var vy = getFieldY(coord.x, coord.y);
+		var vx = getFieldX(coord.x, -coord.y);
+		var vy = getFieldY(coord.x, -coord.y);
 		var v = new THREE.Vector3(vx,vy,0);
 		var ds = v.multiplyScalar(dt);
 		vertex.add(ds);
