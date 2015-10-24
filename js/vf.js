@@ -158,7 +158,7 @@ function getFieldX(x,y){
 }
 
 function getFieldY(x,y){
-	return eval(ycomp)
+	return -eval(ycomp)
 }
 
 function setMousePosition(e) {
