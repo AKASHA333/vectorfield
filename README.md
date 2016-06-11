@@ -14,4 +14,4 @@ Plotting interesting vector fields can create mesmerizing visualizations.
 ![vf2](vf2.gif)
 
 <center> cos(y) <b>i</b> + sin(x) <b>j</b> </center>
-![vf3](https://s3.amazonaws.com/quickcast/13475/129117/quickcast-small.mp4?144158833361)
+![vf3](vf3.gif)
